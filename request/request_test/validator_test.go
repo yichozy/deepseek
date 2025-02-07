@@ -30,7 +30,7 @@ func TestValidateChatCompletionsRequest(t *testing.T) {
 			IncludeUsage: true,
 		},
 		Temperature: 2.0,
-		TopP:        nil, // TODO: VN -- pass non nil
+		TopP:        float32Ptr(0.5), // Pfa8a
 	}
 	err := request.ValidateChatCompletionsRequest(req)
 	assert.NoError(t, err)
