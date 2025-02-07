@@ -29,8 +29,8 @@ func TestValidateChatCompletionsRequest(t *testing.T) {
 		StreamOptions: &request.StreamOptions{
 			IncludeUsage: true,
 		},
-		Temperature: 2.0,
-		TopP:        float32Ptr(0.5), // Pfa8a
+		Temperature: float32Ptr(2.0),
+		TopP:        float32Ptr(0.5),
 	}
 	err := request.ValidateChatCompletionsRequest(req)
 	assert.NoError(t, err)
@@ -57,7 +57,7 @@ func TestValidateChatCompletionsRequestWithTopP(t *testing.T) {
 		StreamOptions: &request.StreamOptions{
 			IncludeUsage: true,
 		},
-		Temperature: 2.0,
+		Temperature: float32Ptr(2.0),
 		TopP:        float32Ptr(0.5),
 	}
 	err := request.ValidateChatCompletionsRequest(req)
