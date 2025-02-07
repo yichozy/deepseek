@@ -45,9 +45,7 @@ func (c *Client) CallChatCompletionsChat(ctx context.Context, chatReq *request.C
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	if err := validateChatParams(chatReq, false, "deepseek-chat"); err != nil {
-		return nil, err
-	}
+
 	if !c.DisableRequestValidation {
 		err := request.ValidateChatCompletionsRequest(chatReq)
 		if err != nil {
@@ -81,9 +79,7 @@ func (c *Client) StreamChatCompletionsChat(ctx context.Context, chatReq *request
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	if err := validateChatParams(chatReq, true, "deepseek-chat"); err != nil {
-		return nil, err
-	}
+
 	if !c.DisableRequestValidation {
 		err := request.ValidateChatCompletionsRequest(chatReq)
 		if err != nil {
@@ -106,9 +102,7 @@ func (c *Client) CallChatCompletionsReasoner(ctx context.Context, chatReq *reque
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	if err := validateChatParams(chatReq, false, "deepseek-reasoner"); err != nil {
-		return nil, err
-	}
+
 	if !c.DisableRequestValidation {
 		err := request.ValidateChatCompletionsRequest(chatReq)
 		if err != nil {
@@ -142,9 +136,7 @@ func (c *Client) StreamChatCompletionsReasoner(ctx context.Context, chatReq *req
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	if err := validateChatParams(chatReq, true, "deepseek-reasoner"); err != nil {
-		return nil, err
-	}
+
 	if !c.DisableRequestValidation {
 		err := request.ValidateChatCompletionsRequest(chatReq)
 		if err != nil {
@@ -230,17 +222,4 @@ func processError(respBody io.Reader, statusCode int) error {
 		return fmt.Errorf("err: %s; http_status_code=%d", errBody, statusCode)
 	}
 	return fmt.Errorf("err: %s; http_status_code=%d", errResp.Error.Message, statusCode)
-}
-
-func validateChatParams(chatReq *request.ChatCompletionsRequest, wantStream bool, wantModel string) error {
-	if chatReq == nil {
-		return errors.New("err: chat completions request should not be nil")
-	}
-	if chatReq.Stream != wantStream {
-		return fmt.Errorf(`err: stream should be %v`, wantStream)
-	}
-	if chatReq.Model != wantModel {
-		return fmt.Errorf(`err: model should be %q`, wantModel)
-	}
-	return nil
 }
