@@ -46,13 +46,6 @@ func (c *Client) CallChatCompletionsChat(ctx context.Context, chatReq *request.C
 		ctx = context.Background()
 	}
 
-	if !c.DisableRequestValidation {
-		err := request.ValidateChatCompletionsRequest(chatReq)
-		if err != nil {
-			return nil, err
-		}
-	}
-
 	// call api
 	respBody, err := c.do(ctx, chatReq)
 	if err != nil {
@@ -80,13 +73,6 @@ func (c *Client) StreamChatCompletionsChat(ctx context.Context, chatReq *request
 		ctx = context.Background()
 	}
 
-	if !c.DisableRequestValidation {
-		err := request.ValidateChatCompletionsRequest(chatReq)
-		if err != nil {
-			return nil, err
-		}
-	}
-
 	// call api
 	respBody, err := c.do(ctx, chatReq)
 	if err != nil {
@@ -101,13 +87,6 @@ func (c *Client) CallChatCompletionsReasoner(ctx context.Context, chatReq *reque
 	// validate request
 	if ctx == nil {
 		ctx = context.Background()
-	}
-
-	if !c.DisableRequestValidation {
-		err := request.ValidateChatCompletionsRequest(chatReq)
-		if err != nil {
-			return nil, err
-		}
 	}
 
 	// call api
@@ -135,13 +114,6 @@ func (c *Client) StreamChatCompletionsReasoner(ctx context.Context, chatReq *req
 	// validate request
 	if ctx == nil {
 		ctx = context.Background()
-	}
-
-	if !c.DisableRequestValidation {
-		err := request.ValidateChatCompletionsRequest(chatReq)
-		if err != nil {
-			return nil, err
-		}
 	}
 
 	// call api
