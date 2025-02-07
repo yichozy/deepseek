@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/yichozy/deepseek/config"
@@ -151,6 +152,11 @@ func (c *Client) PingChatCompletions(ctx context.Context, inputMessage string) (
 }
 
 func (c *Client) do(ctx context.Context, chatReq *request.ChatCompletionsRequest) (io.ReadCloser, error) {
+
+	if strings.HasSuffix(c.BaseURL, "/") {
+		c.BaseURL = c.BaseURL[:len(c.BaseURL)-1]
+	}
+
 	url := fmt.Sprintf(`%s/chat/completions`, c.BaseURL)
 
 	in := new(bytes.Buffer)
