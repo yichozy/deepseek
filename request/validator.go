@@ -37,10 +37,6 @@ func ValidateChatCompletionsRequest(req *ChatCompletionsRequest) error {
 		return err
 	}
 
-	if err := validateModel(req); err != nil {
-		return err
-	}
-
 	if err := validateMultipleFields(req); err != nil {
 		return err
 	}
@@ -83,16 +79,6 @@ func validateMessages(messages []*Message) error {
 		if msg.Role == RoleTool && msg.ToolCallId == "" {
 			return fmt.Errorf("err: tool_call_id is blank for message at %d index; tool_call_id is mandatory with role %q", ind, msg.Role)
 		}
-	}
-	return nil
-}
-
-func validateModel(req *ChatCompletionsRequest) error {
-	if req.Model == "" {
-		return errors.New("err: model required in request")
-	}
-	if !(req.Model == modelChat || req.Model == modelReasoner) {
-		return fmt.Errorf("err: invalid model %q; model should be one of [%s]", req.Model, modelStr)
 	}
 	return nil
 }

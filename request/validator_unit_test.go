@@ -103,37 +103,6 @@ func TestValidateMessages(t *testing.T) {
 
 }
 
-func TestValidateModel(t *testing.T) {
-	t.Run("err for model blank", func(t *testing.T) {
-		req := &ChatCompletionsRequest{}
-		err := validateModel(req)
-		assert.NotNil(t, err)
-	})
-
-	t.Run("err for invalid model", func(t *testing.T) {
-		req := &ChatCompletionsRequest{
-			Model: "random",
-		}
-		err := validateModel(req)
-		assert.NotNil(t, err)
-	})
-
-	t.Run("no err for valid model", func(t *testing.T) {
-		req := &ChatCompletionsRequest{
-			Model: modelChat,
-		}
-		err := validateModel(req)
-		assert.NoError(t, err)
-
-		req = &ChatCompletionsRequest{
-			Model: modelReasoner,
-		}
-		err = validateModel(req)
-		assert.NoError(t, err)
-	})
-
-}
-
 func TestValidateResponseFormat(t *testing.T) {
 	t.Run("err for invalid response_format", func(t *testing.T) {
 		req := &ChatCompletionsRequest{
