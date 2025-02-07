@@ -110,8 +110,10 @@ func validateMultipleFields(req *ChatCompletionsRequest) error {
 		return fmt.Errorf("err: presence_penalty is invalid; it should be number between -2 and 2")
 	}
 
-	if !(req.Temperature >= 0.0 && req.Temperature <= 2.0) {
-		return fmt.Errorf("err: temperature is invalid; it should be number between 0.0 and 2.0")
+	if req.Temperature != nil {
+		if !(*req.Temperature >= 0.0 && *req.Temperature <= 2.0) {
+			return fmt.Errorf("err: temperature is invalid; it should be number between 0.0 and 2.0")
+		}
 	}
 
 	if req.TopP != nil {
